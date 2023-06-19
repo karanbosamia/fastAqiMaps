@@ -35,8 +35,8 @@ def read_root():
     """
     return {"Hello": "World"}
 
-@app.get("/get/data/{city}")
-async def get_city_aqi(city: str, db:Session=Depends(get_db)):
+@app.get("/get/data/{city}/{token}")
+async def get_city_aqi(city: str, db:Session=Depends(get_db), token: str):
     """
     The get_city_aqi function takes in a city name and returns the air quality index for that city.
         The function uses the waqi API to get this information.
@@ -46,7 +46,7 @@ async def get_city_aqi(city: str, db:Session=Depends(get_db)):
     :param db:Session: Get the database session from the dependency injection
     :return: A dictionary with the following keys:
     """
-    url = f"https://api.waqi.info/feed/{city}?token=833340bf1cccad09d5ad628cc1d97cf1344cc93a"
+    url = f"https://api.waqi.info/feed/{city}?token={token}"
     payload = json.dumps({})
     headers = {
       'Content-Type': 'application/json'
